@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceHub - Transactions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/transactions.css">
+</head>
+<body class="light-mode">
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-book-open"></i>
+            <h1>FinanceHub</h1>
+        </div>
+        <div class="nav-section">
+            <h3>Main</h3>
+            <ul class="nav-links">
+                <li><a href="/"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                <li><a href="/accounts"><i class="fas fa-university"></i> <span>Accounts</span></a></li>
+                <li><a href="/transactions" class="active"><i class="fas fa-exchange-alt"></i> <span>Transactions</span></a></li>
+                <li><a href="/analytics"><i class="fas fa-chart-pie"></i> <span>Analytics</span></a></li>
+            </ul>
+        </div>
+        <div class="nav-section">
+            <h3>Tools</h3>
+            <ul class="nav-links">
+                <li><a href="/link-accounts"><i class="fas fa-link"></i> <span>Link Accounts</span></a></li>
+                <li><a href="/reports"><i class="fas fa-file-alt"></i> <span>Reports</span></a></li>
+                <li><a href="/settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="welcome">
+                <h2>Transactions</h2>
+                <p>View all your transactions</p>
+            </div>
+            <div class="user-menu">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar" id="profileAvatar">AJ</div>
+                    <div class="user-info">
+                        <div class="user-name" id="profileName">Alex Johnson</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">All Transactions</div>
+                <div class="chart-actions">
+                    <button>Filter</button>
+                    <button>Export</button>
+                </div>
+            </div>
+            <ul class="transaction-list">
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon bg-red">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Grocery Store</h4>
+                            <p>May 30, 2023 • Credit Card</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount expense">-$86.40</div>
+                </li>
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon bg-green">
+                            <i class="fas fa-money-check"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Salary Deposit</h4>
+                            <p>May 28, 2023 • Bank Account</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount income">+$3,500.00</div>
+                </li>
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon bg-red">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Rent Payment</h4>
+                            <p>May 25, 2023 • Bank Account</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount expense">-$1,200.00</div>
+                </li>
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon bg-red">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Restaurant</h4>
+                            <p>May 24, 2023 • Credit Card</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount expense">-$64.80</div>
+                </li>
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon bg-red">
+                            <i class="fas fa-gas-pump"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Gas Station</h4>
+                            <p>May 23, 2023 • Credit Card</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount expense">-$45.20</div>
+                </li>
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon bg-red">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Online Shopping</h4>
+                            <p>May 22, 2023 • Credit Card</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount expense">-$129.99</div>
+                </li>
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon bg-green">
+                            <i class="fas fa-money-bill"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Freelance Work</h4>
+                            <p>May 20, 2023 • Bank Account</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount income">+$850.00</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/transactions.js"></script>
+</body>
+</html>

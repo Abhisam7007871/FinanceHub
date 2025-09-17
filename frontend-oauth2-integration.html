@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth2 Social Login Integration</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .login-container { text-align: center; margin: 50px 0; }
+        .social-btn { display: inline-block; margin: 10px; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .google-btn { background: #4285f4; color: white; }
+        .facebook-btn { background: #1877f2; color: white; }
+        .apple-btn { background: #000; color: white; }
+        .profile-container { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="loginContainer">
+        <h2>Login with Social Providers</h2>
+        <a href="http://localhost:8080/oauth2/authorization/google" class="social-btn google-btn">
+            Login with Google
+        </a>
+        <a href="http://localhost:8080/oauth2/authorization/facebook" class="social-btn facebook-btn">
+            Login with Facebook
+        </a>
+        <a href="http://localhost:8080/oauth2/authorization/apple" class="social-btn apple-btn">
+            Sign in with Apple
+        </a>
+    </div>
+
+    <div class="profile-container hidden" id="profileContainer">
+        <h3>User Profile</h3>
+        <div id="profileData"></div>
+        <button onclick="logout()">Logout</button>
+        <button onclick="refreshToken()">Refresh Token</button>
+    </div>
+
+    <script>
+        // Check if user is already logged in on page load
+        window.onload = function() {
+            checkAuthStatus();
+            
+            // Handle OAuth2 redirect
+            if (window.location.pathname === '/oauth2-redirect') {
+                handleOAuth2Redirect();
+            }
+        };
+
+        async function checkAuthStatus() {
+            try {
+                const response = await fetch('http://localhost:8080/api/oauth/profile', {
+                    credentials: 'include' // Important for cookies
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.loggedIn) {
+                        showProfile(data.user);
+                    }
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+            }
+        }
+
+        function handleOAuth2Redirect() {
+            // For cookie-based flow, just check profile
+            setTimeout(() => {
+                checkAuthStatus();
+                // Redirect to main page
+                window.location.href = '/';
+            }, 1000);
+        }
+
+        function showProfile(user) {
+            document.getElementById('loginContainer').classList.add('hidden');
+            document.getElementById('profileContainer').classList.remove('hidden');
+            
+            document.getElementById('profileData').innerHTML = `
+                <p><strong>ID:</strong> ${user.id}</p>
+                <p><strong>Name:</strong> ${user.name || 'N/A'}</p>
+                <p><strong>Email:</strong> ${user.email || 'N/A'}</p>
+                <p><strong>Provider:</strong> ${user.provider}</p>
+                <p><strong>Picture:</strong> ${user.pictureUrl ? `<img src="${user.pictureUrl}" width="50" height="50">` : 'N/A'}</p>
+            `;
+        }
+
+        async function logout() {
+            try {
+                await fetch('http://localhost:8080/api/oauth/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                
+                // Show login form again
+                document.getElementById('loginContainer').classList.remove('hidden');
+                document.getElementById('profileContainer').classList.add('hidden');
+                
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        }
+
+        async function refreshToken() {
+            try {
+                const response = await fetch('http://localhost:8080/api/oauth/refresh', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    alert('Token refreshed successfully!');
+                } else {
+                    alert('Token refresh failed');
+                }
+            } catch (error) {
+                console.error('Token refresh failed:', error);
+            }
+        }
+
+        // Alternative: Header-based authentication (if you prefer this over cookies)
+        async function callAPIWithHeader() {
+            const token = localStorage.getItem('access_token');
+            if (!token) return;
+
+            try {
+                const response = await fetch('http://localhost:8080/api/oauth/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const data = await response.json();
+                console.log('Profile data:', data);
+            } catch (error) {
+                console.error('API call failed:', error);
+            }
+        }
+    </script>
+</body>
+</html>

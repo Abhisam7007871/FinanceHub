@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceHub - Link Accounts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/link-accounts.css">
+</head>
+<body class="light-mode">
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-book-open"></i>
+            <h1>FinanceHub</h1>
+        </div>
+        <div class="nav-section">
+            <h3>Main</h3>
+            <ul class="nav-links">
+                <li><a href="/"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                <li><a href="/accounts"><i class="fas fa-university"></i> <span>Accounts</span></a></li>
+                <li><a href="/transactions"><i class="fas fa-exchange-alt"></i> <span>Transactions</span></a></li>
+                <li><a href="/analytics"><i class="fas fa-chart-pie"></i> <span>Analytics</span></a></li>
+            </ul>
+        </div>
+        <div class="nav-section">
+            <h3>Tools</h3>
+            <ul class="nav-links">
+                <li><a href="/link-accounts" class="active"><i class="fas fa-link"></i> <span>Link Accounts</span></a></li>
+                <li><a href="/reports"><i class="fas fa-file-alt"></i> <span>Reports</span></a></li>
+                <li><a href="/settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="welcome">
+                <h2>Link Accounts</h2>
+                <p>Connect your financial accounts</p>
+            </div>
+            <div class="user-menu">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar" id="profileAvatar">AJ</div>
+                    <div class="user-info">
+                        <div class="user-name" id="profileName">Alex Johnson</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">Link New Account</div>
+                <div class="chart-actions">
+                    <button onclick="window.location.href='/accounts'">View Linked Accounts</button>
+                </div>
+            </div>
+            <div class="account-linking">
+                <div class="account-card" onclick="openLinkModal('bank')">
+                    <div class="account-icon bg-blue">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Bank Account</h3>
+                    <p>Connect your checking and savings accounts</p>
+                    <button class="link-btn">Link Account</button>
+                </div>
+                
+                <div class="account-card" onclick="openLinkModal('credit')">
+                    <div class="account-icon bg-purple">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Credit Card</h3>
+                    <p>Connect your credit cards for tracking</p>
+                    <button class="link-btn">Link Account</button>
+                </div>
+                
+                <div class="account-card" onclick="openLinkModal('loan')">
+                    <div class="account-icon bg-red">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Loan Account</h3>
+                    <p>Connect your mortgage, auto, or personal loans</p>
+                    <button class="link-btn">Link Account</button>
+                </div>
+                
+                <div class="account-card" onclick="openLinkModal('investment')">
+                    <div class="account-icon bg-green">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Investment Account</h3>
+                    <p>Connect your investment and brokerage accounts</p>
+                    <button class="link-btn">Link Account</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">Recently Linked Accounts</div>
+            </div>
+            <div class="accounts-list">
+                <div class="account-item">
+                    <div class="account-item-icon bg-blue">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="account-item-details">
+                        <h3>Chase Checking</h3>
+                        <p>Linked on May 15, 2023</p>
+                    </div>
+                    <div class="account-balance">
+                        <div class="amount">Active</div>
+                    </div>
+                </div>
+                <div class="account-item">
+                    <div class="account-item-icon bg-purple">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="account-item-details">
+                        <h3>Chase Sapphire Card</h3>
+                        <p>Linked on April 28, 2023</p>
+                    </div>
+                    <div class="account-balance">
+                        <div class="amount">Active</div>
+                    </div>
+                </div>
+                <div class="account-item">
+                    <div class="account-item-icon bg-green">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="account-item-details">
+                        <h3>Fidelity Investments</h3>
+                        <p>Linked on March 10, 2023</p>
+                    </div>
+                    <div class="account-balance">
+                        <div class="amount">Active</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="linkModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Link Bank Account</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="accountType">Account Type</label>
+                <select id="accountType">
+                    <option value="checking">Checking Account</option>
+                    <option value="savings">Savings Account</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="bankName">Bank Name</label>
+                <input type="text" id="bankName" placeholder="Enter bank name">
+            </div>
+            
+            <div class="form-group">
+                <label for="accountNumber">Account Number</label>
+                <input type="text" id="accountNumber" placeholder="Enter account number">
+            </div>
+            
+            <div class="form-group">
+                <label for="routingNumber">Routing Number</label>
+                <input type="text" id="routingNumber" placeholder="Enter routing number">
+            </div>
+            
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="linkAccount()">Link Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/link-accounts.js"></script>
+</body>
+</html>

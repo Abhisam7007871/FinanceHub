@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceHub - Accounts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/accounts.css">
+</head>
+<body class="light-mode">
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-book-open"></i>
+            <h1>FinanceHub</h1>
+        </div>
+        <div class="nav-section">
+            <h3>Main</h3>
+            <ul class="nav-links">
+                <li><a href="/"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                <li><a href="/accounts" class="active"><i class="fas fa-university"></i> <span>Accounts</span></a></li>
+                <li><a href="/transactions"><i class="fas fa-exchange-alt"></i> <span>Transactions</span></a></li>
+                <li><a href="/analytics"><i class="fas fa-chart-pie"></i> <span>Analytics</span></a></li>
+            </ul>
+        </div>
+        <div class="nav-section">
+            <h3>Tools</h3>
+            <ul class="nav-links">
+                <li><a href="/link-accounts"><i class="fas fa-link"></i> <span>Link Accounts</span></a></li>
+                <li><a href="/reports"><i class="fas fa-file-alt"></i> <span>Reports</span></a></li>
+                <li><a href="/settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="welcome">
+                <h2>Accounts</h2>
+                <p>Manage your linked accounts</p>
+            </div>
+            <div class="user-menu">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar" id="profileAvatar">AJ</div>
+                    <div class="user-info">
+                        <div class="user-name" id="profileName">Alex Johnson</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">Your Accounts</div>
+                <div class="chart-actions">
+                    <button onclick="openLinkModal('bank')">Add Account</button>
+                </div>
+            </div>
+            <div class="accounts-list">
+                <div class="account-item">
+                    <div class="account-item-icon bg-blue">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="account-item-details">
+                        <h3>Checking Account</h3>
+                        <p>Chase Bank ••••4582</p>
+                    </div>
+                    <div class="account-balance">
+                        <div class="amount">$12,450.75</div>
+                        <div class="number">Available</div>
+                    </div>
+                </div>
+                <div class="account-item">
+                    <div class="account-item-icon bg-blue">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div class="account-item-details">
+                        <h3>Savings Account</h3>
+                        <p>Wells Fargo ••••7821</p>
+                    </div>
+                    <div class="account-balance">
+                        <div class="amount">$8,742.36</div>
+                        <div class="number">Available</div>
+                    </div>
+                </div>
+                <div class="account-item">
+                    <div class="account-item-icon bg-purple">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="account-item-details">
+                        <h3>Credit Card</h3>
+                        <p>Chase Sapphire ••••3298</p>
+                    </div>
+                    <div class="account-balance">
+                        <div class="amount">$2,458.90</div>
+                        <div class="number">Balance</div>
+                    </div>
+                </div>
+                <div class="account-item">
+                    <div class="account-item-icon bg-red">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="account-item-details">
+                        <h3>Auto Loan</h3>
+                        <p>Bank of America ••••5521</p>
+                    </div>
+                    <div class="account-balance">
+                        <div class="amount">$15,250.00</div>
+                        <div class="number">Remaining</div>
+                    </div>
+                </div>
+                <div class="account-item">
+                    <div class="account-item-icon bg-green">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="account-item-details">
+                        <h3>Investment Account</h3>
+                        <p>Fidelity ••••8845</p>
+                    </div>
+                    <div class="account-balance">
+                        <div class="amount">$45,689.23</div>
+                        <div class="number">Current Value</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="linkModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Link Bank Account</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="accountType">Account Type</label>
+                <select id="accountType">
+                    <option value="checking">Checking Account</option>
+                    <option value="savings">Savings Account</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="bankName">Bank Name</label>
+                <input type="text" id="bankName" placeholder="Enter bank name">
+            </div>
+            
+            <div class="form-group">
+                <label for="accountNumber">Account Number</label>
+                <input type="text" id="accountNumber" placeholder="Enter account number">
+            </div>
+            
+            <div class="form-group">
+                <label for="routingNumber">Routing Number</label>
+                <input type="text" id="routingNumber" placeholder="Enter routing number">
+            </div>
+            
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="linkAccount()">Link Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/accounts.js"></script>
+</body>
+</html>

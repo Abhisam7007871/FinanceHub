@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceHub - Reports</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/reports.css">
+</head>
+<body class="light-mode">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-book-open"></i>
+            <h1>FinanceHub</h1>
+        </div>
+
+        <div class="nav-section">
+            <h3>Main</h3>
+            <ul class="nav-links">
+                <li><a href="/"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                <li><a href="/accounts"><i class="fas fa-university"></i> <span>Accounts</span></a></li>
+                <li><a href="/transactions"><i class="fas fa-exchange-alt"></i> <span>Transactions</span></a></li>
+                <li><a href="/analytics"><i class="fas fa-chart-pie"></i> <span>Analytics</span></a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <h3>Tools</h3>
+            <ul class="nav-links">
+                <li><a href="/link-accounts"><i class="fas fa-link"></i> <span>Link Accounts</span></a></li>
+                <li><a href="/reports" class="active"><i class="fas fa-file-alt"></i> <span>Reports</span></a></li>
+                <li><a href="/settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="welcome">
+                <h2>Reports</h2>
+                <p>Generate and view financial reports</p>
+            </div>
+            <div class="user-menu">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar" id="profileAvatar">AJ</div>
+                    <div class="user-info">
+                        <div class="user-name" id="profileName">Alex Johnson</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">Financial Reports</div>
+                <div class="chart-actions">
+                    <button id="generateReportBtn">Generate New Report</button>
+                </div>
+            </div>
+            <div class="reports-grid">
+                <div class="report-card" data-report="expense">
+                    <div class="report-icon bg-blue">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>Monthly Expense Report</h3>
+                    <p>Detailed breakdown of your monthly spending across all categories</p>
+                    <div class="report-date">Generated: May 31, 2023</div>
+                </div>
+                <div class="report-card" data-report="income">
+                    <div class="report-icon bg-green">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Income Trends</h3>
+                    <p>Analysis of your income sources and trends over the past year</p>
+                    <div class="report-date">Generated: May 15, 2023</div>
+                </div>
+                <div class="report-card" data-report="credit">
+                    <div class="report-icon bg-purple">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Credit Score Report</h3>
+                    <p>Detailed analysis of your credit score factors and history</p>
+                    <div class="report-date">Generated: April 30, 2023</div>
+                </div>
+                <div class="report-card" data-report="debt">
+                    <div class="report-icon bg-red">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Debt Analysis</h3>
+                    <p>Comprehensive overview of your debts and repayment progress</p>
+                    <div class="report-date">Generated: April 15, 2023</div>
+                </div>
+                <div class="report-card" data-report="savings">
+                    <div class="report-icon bg-green">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h3>Savings Progress</h3>
+                    <p>Track your savings goals and progress toward financial targets</p>
+                    <div class="report-date">Generated: March 31, 2023</div>
+                </div>
+                <div class="report-card" data-report="networth">
+                    <div class="report-icon bg-blue">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Net Worth Statement</h3>
+                    <p>Complete overview of your assets, liabilities, and net worth</p>
+                    <div class="report-date">Generated: March 15, 2023</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Detail Modal -->
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Report Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-chart-container">
+                <canvas id="reportChart"></canvas>
+            </div>
+            <div class="modal-details" id="reportDetails">
+                <!-- Details will be inserted here by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn-download" id="downloadPdfBtn"><i class="fas fa-download"></i> Download PDF</button>
+                <button class="btn-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generate Report Modal -->
+    <div class="modal" id="generateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Generate New Report</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="generation-form">
+                <div class="form-group">
+                    <label for="reportType">Report Type</label>
+                    <select id="reportType">
+                        <option value="expense">Monthly Expense Report</option>
+                        <option value="income">Income Trends</option>
+                        <option value="credit">Credit Score Report</option>
+                        <option value="debt">Debt Analysis</option>
+                        <option value="savings">Savings Progress</option>
+                        <option value="networth">Net Worth Statement</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="timePeriod">Time Period</label>
+                    <select id="timePeriod">
+                        <option value="lastMonth">Last Month</option>
+                        <option value="lastQuarter">Last Quarter</option>
+                        <option value="lastYear">Last Year</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+                <div class="form-group full-width" id="customRange" style="display: none;">
+                    <label for="dateRange">Select Date Range</label>
+                    <input type="text" id="dateRange" placeholder="Select date range">
+                </div>
+                <div class="form-group full-width">
+                    <label for="reportFormat">Report Format</label>
+                    <select id="reportFormat">
+                        <option value="detailed">Detailed Report</option>
+                        <option value="summary">Summary Report</option>
+                        <option value="graphical">Graphical Report</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-download" id="generateReportModalBtn">Generate Report</button>
+                <button class="btn-close">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage">Report generated successfully!</span>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/reports.js"></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+{
+  "info": {
+    "name": "Project Ledger OAuth2 Social Login",
+    "description": "Complete OAuth2 social login integration for Google, Facebook, and Apple",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "OAuth2 Social Login",
+      "item": [
+        {
+          "name": "Start Google OAuth (Browser)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/oauth2/authorization/google",
+              "host": ["{{baseUrl}}"],
+              "path": ["oauth2", "authorization", "google"]
+            },
+            "description": "Open this URL in browser to start Google OAuth flow"
+          }
+        },
+        {
+          "name": "Start Facebook OAuth (Browser)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/oauth2/authorization/facebook",
+              "host": ["{{baseUrl}}"],
+              "path": ["oauth2", "authorization", "facebook"]
+            },
+            "description": "Open this URL in browser to start Facebook OAuth flow"
+          }
+        },
+        {
+          "name": "Start Apple OAuth (Browser)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/oauth2/authorization/apple",
+              "host": ["{{baseUrl}}"],
+              "path": ["oauth2", "authorization", "apple"]
+            },
+            "description": "Open this URL in browser to start Apple OAuth flow"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Token Management",
+      "item": [
+        {
+          "name": "Refresh Access Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/oauth/refresh",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oauth", "refresh"]
+            },
+            "description": "Refresh access token using refresh token cookie"
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/oauth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oauth", "logout"]
+            },
+            "description": "Logout and clear tokens"
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Profile",
+      "item": [
+        {
+          "name": "Get Profile (Cookie Auth)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oauth/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oauth", "profile"]
+            },
+            "description": "Get user profile using cookie authentication"
+          }
+        },
+        {
+          "name": "Get Profile (Header Auth)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "description": "JWT access token"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/oauth/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oauth", "profile"]
+            },
+            "description": "Get user profile using Authorization header"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Integration with Existing API",
+      "item": [
+        {
+          "name": "Get Dashboard (OAuth User)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dashboard", "profile"]
+            },
+            "description": "Access existing dashboard with OAuth user"
+          }
+        },
+        {
+          "name": "Get Accounts (OAuth User)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/accounts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "accounts"]
+            },
+            "description": "Get user accounts with OAuth authentication"
+          }
+        },
+        {
+          "name": "Get Transactions (OAuth User)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/transactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "transactions"]
+            },
+            "description": "Get user transactions with OAuth authentication"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Testing & Debug",
+      "item": [
+        {
+          "name": "Test CORS",
+          "request": {
+            "method": "OPTIONS",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000"
+              },
+              {
+                "key": "Access-Control-Request-Method",
+                "value": "GET"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/oauth/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oauth", "profile"]
+            },
+            "description": "Test CORS preflight request"
+          }
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            },
+            "description": "Basic health check"
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-extract tokens from cookies if available",
+          "if (pm.cookies.has('ACCESS_TOKEN')) {",
+          "    pm.collectionVariables.set('access_token', pm.cookies.get('ACCESS_TOKEN'));",
+          "}",
+          "if (pm.cookies.has('REFRESH_TOKEN')) {",
+          "    pm.collectionVariables.set('refresh_token', pm.cookies.get('REFRESH_TOKEN'));",
+          "}"
+        ]
+      }
+    }
+  ]
+}
